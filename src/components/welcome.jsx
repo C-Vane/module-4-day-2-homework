@@ -1,21 +1,16 @@
 import React from "react";
-import { Row, Col, Container, Navbar } from "bootstrap";
+import { Jumbotron, Container } from "react-bootstrap";
 
 function Welcome() {
   return (
+    <Jumbotron fluid>
     <Container>
-     <Row>
-         <Col xs={12} md={6} lg={4}>
-<nav></nav>
-         </Col>
-         <Col xs={12} md={6} lg={4}>
-             
-         </Col>
-         <Col xs={12} md={6} lg={4}>
-             
-         </Col>
-     </Row>
+      <h1>Welcome to Strive Book Store</h1>
+      <p>
+     Save 20% off 4 or more used books!.
+      </p>
     </Container>
+  </Jumbotron>
   );
 }
 

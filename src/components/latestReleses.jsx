@@ -1,21 +1,14 @@
 import React from "react";
-import { Row, Col, Container, Navbar } from "bootstrap";
+import fantasy from "./books/fantasy.json"
+import history from "./books/history.json"
+import horror from "./books/horror.json"
+import romance from "./books/romance.json"
+import scifi from "./books/scifi.json"
+import { Row, Col, Container, Navbar } from "react-bootstrap";
 
 function LatestReleses() {
   return (
-    <Container>
-     <Row>
-         <Col xs={12} md={6} lg={4}>
-<nav></nav>
-         </Col>
-         <Col xs={12} md={6} lg={4}>
-             
-         </Col>
-         <Col xs={12} md={6} lg={4}>
-             
-         </Col>
-     </Row>
-    </Container>
+    
   );
 }
 
