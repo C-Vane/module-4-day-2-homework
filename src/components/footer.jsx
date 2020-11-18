@@ -19,7 +19,6 @@ function Footer() {
           <Row className="justify-content-md-center">
             <Nav.Link href='#'>Contact us</Nav.Link>
             <Nav.Link href='#'>Locations</Nav.Link>
-            <Nav.Link href='#'>Browse</Nav.Link>
           </Row>
         </Col>
       </Row>
