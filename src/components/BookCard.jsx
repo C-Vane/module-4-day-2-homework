@@ -1,26 +1,30 @@
-import React from 'react';
+import React from "react";
 
-import { CardColumns, Card, Button } from "react-bootstrap";
+import { Card, Button, Image, Row, Col } from "react-bootstrap";
 
 const BookCard = (prop) => {
-const {books}= prop;
-    return (
-         books?
-        <CardColumns>
-            {books.map((book) => (
-                <Card key={book.asin}>
-                    <Card.Img variant='top' src={book.img} />
-                    <Card.Body>
-                        <Card.Title>{book.title}</Card.Title>
-                        <Card.Text>Price: ${book.price}</Card.Text>
-                        <Button variant='success'>Buy</Button>
-                    </Card.Body>
-                </Card>
-            ))}
-        </CardColumns>: null
-        
-    );
+    let { books } = prop;
 
-}
+    return (
+        books && (
+            <Row className="row-cols-1 row-cols-md-3 row-cols-lg-4">
+                {books.map((book) => (
+                    <Col className="mb-3">
+                        <Card key={book.asin} className="h-100">
+                            <Card.Img variant='top' src={book.img} />
+                            <Card.Body className="d-flex flex-column justify-content-between">
+                                <Card.Title>{book.title}</Card.Title>
+                                <div className="d-flex justify-content-around">
+                                    <Card.Text>Price: ${book.price}</Card.Text>
+                                    <Button variant='success'>Buy</Button>
+                                </div>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                ))}
+            </Row>
+        )
+    );
+};
 
 export default BookCard;

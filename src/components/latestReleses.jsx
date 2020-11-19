@@ -7,6 +7,7 @@ import scifi from "../books/scifi.json";
 import BookCard from "./BookCard"
 import { Container } from "react-bootstrap";
 import CategoryItem from "./CategoryItem";
+import CommentArea from "./CommentArea";
 
 class LatestReleses extends Component {
   state = {
@@ -16,6 +17,10 @@ class LatestReleses extends Component {
     search: [],
     search_value: "",
     category_names: ["fantasy", "history", "horror", "romance", "scifi"],
+    loading: false,
+    book: {},
+    comments: [],
+    rates: [],
   };
 
   handleChange = (event) => {
@@ -25,7 +30,8 @@ class LatestReleses extends Component {
     this.setState({ sort: true });
     //sortBooks();
   };
-
+  addComment = () => { }
+  onHide = () => { }
   searchBooks = (event) => {
     const search_key = event.target.value;
     const { books } = this.state;
@@ -44,23 +50,29 @@ class LatestReleses extends Component {
       <CategoryItem category={category} categoryNames={category_names} onSearch={this.searchBooks} onChange={this.handleChange}></CategoryItem>
     );
   };
-
-  render() {
+  loadBooks = () => {
     const { category, books, search, search_value } = this.state;
     let book;
     if (search_value.length > 3) {
-      book = (search.length > 0) ? <BookCard books={search} /> : 
-      <p className="mt-4">No Books found named {search_value} ...</p>
+      book = (search.length > 0) ? <BookCard books={search} /> :
+        <p className="mt-4">No Books found named <strong>{search_value}</strong> ...</p>
     } else {
       book = <BookCard books={books[category]} />
     }
+    return (book);
+  }
+
+
+  render() {
+
+    const { book, comments, rates } = this.state;
     return (
       <Container>
         {this.categorySelect()}
-        {book}
+        {this.loadBooks()}
+        <CommentArea book={book} addComment={this.addComment()} onHide={this.onHide()} />
       </Container>
-    );
+    )
   }
 }
-
 export default LatestReleses;
