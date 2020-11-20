@@ -18,9 +18,8 @@ class LatestReleses extends Component {
     search_value: "",
     category_names: ["fantasy", "history", "horror", "romance", "scifi"],
     loading: false,
-    book: {},
-    comments: [],
-    rates: [],
+    current_book: {},
+    show: false
   };
 
   handleChange = (event) => {
@@ -30,8 +29,20 @@ class LatestReleses extends Component {
     this.setState({ sort: true });
     //sortBooks();
   };
-  addComment = () => { }
-  onHide = () => { }
+  handleClose = () => this.setState({ show: false });
+
+  handleShow = (id) => {
+    let current_book = []
+    this.state.books.forEach(cat => {
+      current_book.push(cat.filter((book) => book.asin === id));
+    });
+    current_book = current_book.flat();
+    this.setState({
+      show: true,
+      current_book: current_book[0]
+    })
+  };
+
   searchBooks = (event) => {
     const search_key = event.target.value;
     const { books } = this.state;
@@ -54,10 +65,10 @@ class LatestReleses extends Component {
     const { category, books, search, search_value } = this.state;
     let book;
     if (search_value.length > 3) {
-      book = (search.length > 0) ? <BookCard books={search} /> :
+      book = (search.length > 0) ? <BookCard books={search} onClick={this.handleShow} /> :
         <p className="mt-4">No Books found named <strong>{search_value}</strong> ...</p>
     } else {
-      book = <BookCard books={books[category]} />
+      book = <BookCard books={books[category]} onClick={this.handleShow} />
     }
     return (book);
   }
@@ -65,12 +76,12 @@ class LatestReleses extends Component {
 
   render() {
 
-    const { book, comments, rates } = this.state;
+    const { current_book, show } = this.state;
     return (
       <Container>
         {this.categorySelect()}
         {this.loadBooks()}
-        <CommentArea book={book} addComment={this.addComment()} onHide={this.onHide()} />
+        <CommentArea book={current_book} addComment={this.addComment} onHide={this.handleClose} show={show} />
       </Container>
     )
   }
