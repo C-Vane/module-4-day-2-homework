@@ -5,7 +5,7 @@ import horror from "../books/horror.json";
 import romance from "../books/romance.json";
 import scifi from "../books/scifi.json";
 import BookCard from "./BookCard"
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import CategoryItem from "./CategoryItem";
 import CommentArea from "./CommentArea";
 
@@ -80,8 +80,11 @@ class LatestReleses extends Component {
     return (
       <Container>
         {this.categorySelect()}
-        {this.loadBooks()}
-        <CommentArea book={current_book} addComment={this.addComment} onHide={this.handleClose} show={show} />
+        <Row>
+          <Col md={8}> {this.loadBooks()} </Col>
+          <Col md={3}>  <CommentArea book={current_book} addComment={this.addComment} /> </Col>
+
+        </Row>
       </Container>
     )
   }

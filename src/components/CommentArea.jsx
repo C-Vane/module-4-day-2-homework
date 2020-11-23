@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Modal, Row, Col, Image, Form, Button, ToggleButtonGroup, ToggleButton, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Image, Form, Button, ToggleButtonGroup, ToggleButton, Spinner } from 'react-bootstrap';
 import "./CommentArea.css";
 import CommentsList from './CommentsList';
 
@@ -12,7 +12,7 @@ class CommentArea extends React.Component {
         refreshList: false,
         review: {
             comment: '',
-            rate: "5",
+            rate: "0",
             elementId: ""
         },
     }
@@ -22,7 +22,6 @@ class CommentArea extends React.Component {
         const { book } = this.props;
         this.setState({ loading: true })
         const { review } = this.state;
-        console.log(review)
         try {
             let response = await fetch("https://striveschool-api.herokuapp.com/api/comments/",
                 {
@@ -34,7 +33,7 @@ class CommentArea extends React.Component {
                     })
                 })
             if (response.ok) {
-                alert('Comment sent!')
+                // alert('Comment sent!')
                 this.setState({
                     review: {
                         comment: '',
@@ -43,7 +42,7 @@ class CommentArea extends React.Component {
                     },
                     errMessage: '',
                     loading: false,
-                    refreshList: true
+                    refreshList: true,
                 })
             } else {
                 console.log('an error occurred')
@@ -116,25 +115,23 @@ class CommentArea extends React.Component {
         this.setState({ review });
         console.log(this.state.review)
     }
+
     render() {
         const { book, onHide, show } = this.props;
 
 
         return (
-            <Modal
+            <Container
                 size="lg"
                 aria-labelledby="bookComments"
-                show={show}
-                centered
             >
-                <Modal.Header key={book.asin} onClick={onHide}>
-                    <Modal.Title id="bookComments">
+                <div key={book.asin} onClick={onHide}>
+                    <h2 id="bookComments">
                         {book.title}
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Row>
-                        <Col md="5">
+                    </h2>
+                    <div>
+
+                        <Row>
                             <Image src={book.img} rounded fluid />
                             <Row className="m-1">
                                 {this.commentSection()}
@@ -149,21 +146,17 @@ class CommentArea extends React.Component {
                                     )
                                 }
                             </Row>
-                        </Col>
-                        <Col md="7">
+
                             <Row>
                                 <Col>
                                     <CommentsList id={book.asin} refreshList={this.state.refreshList} />
                                 </Col>
                             </Row>
-                        </Col>
-                    </Row>
 
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={onHide} variant="secondary">Close</Button>
-                </Modal.Footer>
-            </Modal>
+                        </Row>
+                    </div>
+                </div>
+            </Container>
         );
     }
 }
