@@ -6,7 +6,7 @@ const BookCard = (prop) => {
     let { books, onClick } = prop;
     return (
         books && (
-            <Row className="row-cols-1 row-cols-md-2 row-cols-lg-3">
+            <Row className="row-cols-1 row-cols-md-3 row-cols-lg-4">
                 {books.map((book) => (
                     <Col key={book.asin} id={book.asin} className="mb-3" onClick={() => onClick(book.asin)}>
                         <Card className="h-100">

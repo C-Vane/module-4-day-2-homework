@@ -43,6 +43,7 @@ class CommentsList extends React.Component {
         this.setState({
             loading: true,
         })
+        alert("Comment Deleted")
         try {
             let response = await fetch("https://striveschool-api.herokuapp.com/api/comments/" + id, {
                 method: 'DELETE',
@@ -55,8 +56,7 @@ class CommentsList extends React.Component {
                     delete: true,
                     loading: false,
                 })
-
-                // alert("Comment Deleted")
+                alert("Comment Deleted")
             }
         } catch (e) {
             console.log("error happened, that's life", e)
@@ -69,7 +69,6 @@ class CommentsList extends React.Component {
         if (this.state.delete) {
             const comment = e.currentTarget.parentElement.parentElement;
             comment.classList.add("delete");
-            this.fetchComments(this.props.id);
         }
         this.setState({ delete: false })
     }
@@ -90,7 +89,7 @@ class CommentsList extends React.Component {
                 <div className="d-flex justify-content-between">
                     <small>{review.author}</small>
                     <div>
-                        <small className="text-muted mr-1"><Moment format="D MMM YYYY - hh:mm" withdate={review.createdAt} /></small>
+                        <small className="text-muted mr-1"><Moment format="D MMM YYYY - mm:hh" withdate={review.createdAt} /></small>
                         <Button className="m-0 p-0 px-1 mr-1" variant="outline-danger" id={review._id} onClick={this.deleteComment}> X </Button>
                     </div>
                 </div>
@@ -113,11 +112,7 @@ class CommentsList extends React.Component {
         this.setState({ reviews: (search_key.length > 2) ? reviews : this.book_review, });
 
     }
-    componentDidUpdate = (prevProp) => {
-        if (prevProp.refreshList !== this.props.refreshList) {
-            this.fetchComments(this.props.id);
-        }
-    }
+
     render() {
 
 
@@ -130,7 +125,7 @@ class CommentsList extends React.Component {
             {
                 this.state.loading && (
                     <div className="d-flex justify-content-center my-5">
-                        Deleting Comment, please wait...
+                        Deleting Card, please wait...
                         <div className="ml-2">
                             <Spinner animation="border" variant="success" />
                         </div>
@@ -142,7 +137,7 @@ class CommentsList extends React.Component {
     }
 }
 
-CommentsList.propTypes = { id: PropTypes.string.isRequired, refreshList: PropTypes.bool.isRequired };
+CommentsList.propTypes = { id: PropTypes.string.isRequired };
 // #endregion
 
 export default CommentsList;
